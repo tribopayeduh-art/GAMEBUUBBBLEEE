@@ -1,0 +1,11 @@
+{
+  "name": "bubbles-win-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/game-core.test.mjs"
+  },
+  "engines": {"node": ">=20"}
+}

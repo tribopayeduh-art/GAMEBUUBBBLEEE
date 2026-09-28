@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {START_CREDITS,MIN_CASHOUT_SCORE,multiplier,payout,claimRound,getWallet,creditResult,stakeFromURL} from '../dist/game-core.mjs';
+const m=new Map,storage={getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,v)};
+assert.equal(stakeFromURL('?betCents=500'),500);
+assert.equal(stakeFromURL('?betCents=999999'),1000);
+assert.equal(getWallet(storage,'123'),START_CREDITS);
+claimRound(storage,'123',1000);assert.equal(getWallet(storage,'123'),9000);
+assert.equal(payout(1000,MIN_CASHOUT_SCORE-1),0);
+assert.equal(multiplier(1000),8);
+assert.equal(payout(1000,1000),8000);
+assert.equal(creditResult(storage,'123',1000,150,'cashout').amount,3140);
+assert.equal(getWallet(storage,'123'),12140);
+assert.throws(()=>claimRound(storage,'123',20000));
+console.log('Regras da demonstração verificadas');
